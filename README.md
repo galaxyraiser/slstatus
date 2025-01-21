@@ -70,3 +70,7 @@ source code. This keeps it fast, secure and simple.
 Todo
 ----
 Cleaning up the whole codebase it the goal before thinking about a release.
+
+**Fonts**
+---------
+https://gist.github.com/matthewjberger/7dd7e079f282f8138a9dc3b045ebefa0
