@@ -62,13 +62,9 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 
-static const char vol[]         = "[ `amixer sget Master | tail -n 1 | awk '{print $6;}'` = \"[on]\" ] \
-                                   && printf \"`amixer sget Master | tail -n 1 | awk '{print $5;}' | grep -Po '\\[\\K[^%]*'`%%\" \
-                                   || printf 'Off'";
+static const char vol[]         = "[ `awk -F\"[][]\" '/dB/ {print $6}' <(amixer sget Master)` = \"on\" ] && awk -F\"[][]\" '/dB/ { print $2 }' <(amixer sget Master) || printf 'Off'";
 
-static const char mic[]         = "[ `amixer sget Capture | tail -n 1 | awk '{print $6;}'` = \"[on]\" ] \
-                                   && printf \"`amixer sget Capture | tail -n 1 | awk '{print $5;}' | grep -Po '\\[\\K[^%]*'`%%\" \
-                                   || printf 'Off'";
+static const char mic[]         = "[ `awk -F\"[][]\" '/Left:/ {print $6}' <(amixer sget Capture)` = \"on\" ] && awk -F\"[][]\" '/Left:/ { print $2 }' <(amixer sget Capture) || printf 'Off'";
 
 static const struct arg args[] = {
         /* function format          argument */
@@ -83,3 +79,4 @@ static const struct arg args[] = {
         { keymap,               " %s ",        NULL },
         { datetime,             " %s",         "%a %F %T" }, /* Date time with this format: Day name YYYY-MM-DD 18:00:00 */
 };
+
